@@ -4,9 +4,11 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.DataInputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
+import java.net.*;
+import java.io.*;
 
 public class Server extends JFrame implements ActionListener {
 
@@ -155,5 +157,20 @@ public class Server extends JFrame implements ActionListener {
 
     public static void main(String[] args) {
         new Server();
+
+        try{
+            ServerSocket skt = new ServerSocket(6001);
+            while(true){
+                Socket s = skt.accept();
+                DataInputStream din = new  DataInputStream(s.getInputStream());
+                DataOutputStream dout = new DataOutputStream(s.getOutputStream());
+
+                while(true){
+                    String msg = din.readUTF();
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 }
